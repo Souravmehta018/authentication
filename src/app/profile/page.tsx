@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ProfilePage() {
+function UserProfile() {
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2' >
         <h1>Profile Page</h1>
@@ -8,4 +8,4 @@ function ProfilePage() {
   )
 }
 
-export default ProfilePage
+export default UserProfile

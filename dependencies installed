@@ -3,3 +3,5 @@ npx create-next-app@latest
 npm i axios bcrypt jsonwebtoken nodemailer mongoose
 
 npm install --save-dev @types/bcrypt
+
+npm i react-hot-toast

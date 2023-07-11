@@ -2,6 +2,8 @@
 import Link from "next/link"
 import React, { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "react-hot-toast";
+import axios from "axios";
 // import {axios} from "axios"
 
 
@@ -11,7 +13,21 @@ function SignUp() {
   const [user, setUser] = React.useState({
     email: "", password: "", username:""
   })
+  const [loading, setLoading] = React.useState(false)
   const onSignup =async () => {
+    try {
+      setLoading(true);
+      const response= await axios.post("/api/users/signup", user)
+      console.log("Signup success----", response.data)
+      router.push("./login")
+    } 
+    catch (error : any) {
+      console.log("Sign up failed----", error.message)
+      toast.error(error.message)
+    }
+    finally{
+      setLoading(false)
+    }
     
   }
 
@@ -30,7 +46,8 @@ function SignUp() {
   return (
     <div>
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-          <h1 className="text-3xl italic underline font-bold"> Sign Up </h1>
+          <h1 className="text-3xl italic underline font-bold"> 
+          {loading ? 'Processing' : 'Sign Up'} </h1>
           <hr />
           <br />
       <div className=" w-1/3 justify-center items-center">
@@ -60,7 +77,7 @@ function SignUp() {
           placeholder="Password"/>
         </div>
       </div>
-      console.log("length of password-----", {user.password.length} )
+      {/*console.log("length of password-----", {user.password.length} )*/}
           <button onClick={onSignup}
           className="p-2 border border-gray-300 rounder-lg mb-4 focus:outline-none
           focus:border-gray-600"> {buttonDisabled ? "No SignUp" : "SignUp Now"}</button>

@@ -3,17 +3,17 @@ const { default: mongoose } = require("mongoose");
 const userSchema = new mongoose.Schema({
     username:{
         type: String,
-        required : [true, "Please prvide usrname"],
+        required : [true, "Please provide usrname"],
         unique: true
     },
     email: {
         type: String,
-        required : [true, "Please prvide usrname"],
+        required : [true, "Please provide usrname"],
         unique: true        
     },
     password: {
         type: String,
-        required : [true, "Please prvide usrname"]
+        required : [true, "Please provide usrname"]
     },
     isVerified: {
         type: Boolean,

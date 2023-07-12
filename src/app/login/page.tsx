@@ -20,7 +20,7 @@ function LogIn() {
       setLoading(true);
       const response= await axios.post("/api/users/login", user)
       console.log("Login success----", response.data)
-      router.push("/signup")
+      router.push("/profile")
       
     } 
     catch (error : any) {

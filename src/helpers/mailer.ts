@@ -11,8 +11,8 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
 
         if (emailType === 'VERIFY') {
             //find in database using id and set / change User detials
-            await User.findByIdAndUpdate(userId,{
-            verifyToken:hashedToken, verifyTokenExpiry: Date.now() + 3600000})
+            await User.findByIdAndUpdate(userId,
+              {verifyToken:hashedToken, verifyTokenExpiry: Date.now() + 3600000})
         }
         else if (emailType === 'RESET') {
                 await User.findByIdAndUpdate(userId,{
@@ -30,15 +30,16 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
 
         // Create Mail
         const mailOptions = {
-          from: '"Sourav" <mehtas0108@gmail.com>',
+          from: 'mehtas0108@gmail.com',
           to: email,
           subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
           text: emailType === "VERIFY" ?
           "Please click here to verify your email" :
           "Please click here to reset your password",
-          html: '<p> <a href= "${process.env.domain}/verifyemail?token=${hashedToken}"> Click here to verify </a> </p>'
+          html: `<p> <a href= "${process.env.domain}/verifyemail?token=${hashedToken}"> Click here to verify </a> Or copy paste the link: <br> ${process.env.domain}/verifyemail?token=${hashedToken}</p>`
         }
           const mailresponse = await transport.sendMail(mailOptions)
+          return mailresponse;
     }
     catch (error:any) {
         throw new Error(error.message);
